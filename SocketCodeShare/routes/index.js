@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+
+var nodemailer = require('nodemailer');
+var config = require('../config');
+var transporter = nodemailer.createTransport(config.mailer);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'codeShare - a platform for sharing code. created by GauravGupta!' });
@@ -31,7 +36,19 @@ router.route('/contact')
         errorMessages:errors
       });
     }else{
-      res.render('thankYou',{title:'codeShare - a platform for sharing code. created by GauravGupta!'});
+      var mailOption = {
+        from:'CodeShare <no-reply@codeShare.com>',
+        to:'theunknown@gmail.com',
+        subject:'you got a new message from visitor 💩 it is a poop?',
+        text:req.body.message
+      };
+
+      transporter.sendMail(mailOption,function(error,info){
+        if(error){
+          return console.log(error);
+        }
+          res.render('thankYou',{title:'codeShare - a platform for sharing code. created by GauravGupta!'});
+      });
     }
   });
 
