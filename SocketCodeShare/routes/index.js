@@ -17,7 +17,22 @@ router.route('/contact')
   .get(function(req,res,next){
     res.render('contact',{title:'codeShare - a platform for sharing code. created by GauravGupta!'});
   }).post(function(req,res,next){
-    res.render('thankYou',{title:'codeShare - a platform for sharing code. created by GauravGupta!'});
+    req.checkBody('name','empty name').notEmpty();
+    req.checkBody('email','empty email').notEmpty();
+    req.checkBody('message','empty message').notEmpty();
+    var errors = req.validationErrors();
+
+    if(errors){
+      res.render('contact',{
+        title:'codeShare - a platform for sharing code. created by GauravGupta!',
+        name:req.body.name,
+        email:req.body.email,
+        message:req.body.message,
+        errorMessages:errors
+      });
+    }else{
+      res.render('thankYou',{title:'codeShare - a platform for sharing code. created by GauravGupta!'});
+    }
   });
 
 module.exports = router;
