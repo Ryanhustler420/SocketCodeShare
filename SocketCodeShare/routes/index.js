@@ -52,4 +52,20 @@ router.route('/contact')
     }
   });
 
+
+  router.get('/login',function(req,res,next){
+    res.render('login',{title:'Login your account'});
+  });
+
+  router.get('/register',function(req,res,next){
+    res.render('register',{title:'Register a bew account'});
+  });
+
+
+
+
+
+
+
+
 module.exports = router;
