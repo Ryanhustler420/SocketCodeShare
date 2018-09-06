@@ -8,5 +8,6 @@ module.exports = {
       pass:'mypassword'
     }
   },
-  dbConnstring:'mongodb://127.0.0.1:27017/codeShare'
+  dbConnstring:'mongodb://127.0.0.1:27017/codeShare',
+  sessionKey:'HaloCodeShare'
 }

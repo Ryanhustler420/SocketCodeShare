@@ -6,9 +6,14 @@ var logger = require('morgan');
 var expressValidator = require('express-validator');
 
 var mongoose = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
+
+require('./passport');
 var config = require('./config');
 
 var indexRouter = require('./routes/index');
+var authRoute = require('./routes/auth');
 
 
 mongoose.connect(config.dbConnstring,{ useNewUrlParser: true });
@@ -26,9 +31,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 app.use(cookieParser());
+app.use(session({
+  secret:config.sessionKey,
+  resave:false,
+  saveUninitialized:true,
+  cookie:{secure:true}
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/',authRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
