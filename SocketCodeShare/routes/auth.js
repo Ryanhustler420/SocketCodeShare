@@ -4,13 +4,23 @@ var passport = require('passport');
 
 router.route('/login')
 .get(function(req,res,next){
+  if(req.user){
+   res.redirect('/');
+ }else{
   res.render('login',{title:'Login your account'});
+ }
 })
 .post(passport.authenticate('local',{
   failureRedirect:'/login'
 }),function(req,res){
   res.redirect('/');
 });
+
+router.get('/logout',function(req,res){
+  req.logout();
+  res.redirect('/login');
+});
+
 
 router.route('/register')
 .get(function(req,res,next){

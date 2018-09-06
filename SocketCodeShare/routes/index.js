@@ -7,7 +7,11 @@ var transporter = nodemailer.createTransport(config.mailer);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'codeShare - a platform for sharing code. created by GauravGupta!' });
+  if(req.user){
+      res.render('index', { title: 'codeShare - a platform for sharing code. created by GauravGupta!' });
+  }else{
+    res.redirect('/login');
+  }
 });
 
 
