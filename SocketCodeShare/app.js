@@ -14,10 +14,12 @@ var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var authRoute = require('./routes/auth');
+var taskRoute = require('./routes/task');
 
 
 mongoose.connect(config.dbConnstring,{ useNewUrlParser: true });
 global.User = require('./models/user');
+global.Task = require('./models/task');
 
 var app = express();
 
@@ -53,6 +55,7 @@ app.use(function(req,res,next){
 
 app.use('/', indexRouter);
 app.use('/',authRoute);
+app.use('/',taskRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
