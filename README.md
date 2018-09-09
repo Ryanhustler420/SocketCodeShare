@@ -16,3 +16,7 @@ This web app is meant on nodejs with socket.io with facebook authentication
 > step 4
 
 ``npm start``
+
+> Codemirror CDN Link
+
+``https://cdnjs.com/libraries/codemirror``
